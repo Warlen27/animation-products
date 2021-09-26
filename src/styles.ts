@@ -98,51 +98,50 @@ export const Arrow = styled.button<PropsArrow>`
   }
 `;
 
-export const ContainerProducts = styled(motion.ul) <{ scaleSecondItem: number }>`
+export const ContainerProducts = styled(motion.ul)`
   width: 100vw;
+  min-width: 100vw;
   height: 100vh;
-  /* overflow-x: scroll; */
   display: flex;
   flex-direction: row;
   align-items: center;
   grid-gap: 35px;
   list-style: none;
-  /* justify-content: space-between; */
-  background-color: #f00;
+  background-color: rgb(0,0,0,.5);
   z-index: 2;
   position: absolute;
-  transform: translate(0%, 0);
   top: 0;
   left: -25px;
-  .id1 {
+  /* transform: translateX(40%); */
+  .index0 {
     transform: scale(1.0001) !important;
-    margin-right: 30%;
-    /* transition: ease-in-out 0.5s linear; */
-  }
-
-  .id2 div {
-    width: ${({ scaleSecondItem }) => scaleSecondItem === 1.0001 ? '30vw' : '22vw'};
-    height: ${({ scaleSecondItem }) => scaleSecondItem === 1.0001 ? '100vh' : '60vh'};
-    transition: ease-in-out 0.5s;
-  }
-  > li:first-child {
-    div:first-child {
+    margin: auto 0;
+    left: 0;
+    transition: ease-out 0.5s;
     width: 30vw;
     height: 100vh;
   }
-  } 
-  
-  /* li + li {
-    transform: translate(160%, 0);
-  } */
+
+  .index1 {
+    right: 18%;
+    margin: auto 0;
+
+  }
+
+  .index2 {
+    right: -6%;
+    margin: auto 0;
+
+  }
+
+  .index3 {
+    right: -30%;
+    margin: auto 0;
+
+  }
+
 
  
-`;
-
-export const CardLi = styled(motion.li) <{ _id: number }>`
-    /* transition: ease-in-out 0.5s; */
-
-   /* transform: ${({ _id }) => _id === 1 ? 'scale(1.66)' : 'scale(1)'}; */
 `;
 
 

@@ -4,7 +4,7 @@ import {
 
 } from "framer-motion";
 
-export const CardProduct = styled(motion.div)`
+export const CardProduct = styled(motion.li)`
   width: 22vw;
   height: 60vh;
   /* min-width: 310px; */
@@ -18,6 +18,7 @@ export const CardProduct = styled(motion.div)`
   padding: 20px 10px 10px 10px;
   border-radius: 30px;
   z-index: 2;
+  position: absolute;
 
   h1{
     font-size: 50px;

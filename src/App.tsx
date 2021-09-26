@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import * as C from './styles';
 import Card from './components/Card';
-
 import arrow from './assets/arrow.svg';
 
 const PRODUCTS = [
@@ -18,8 +17,12 @@ const PRODUCTS = [
     id: 3,
     name: 'comp3',
   },
+  {
+    id: 4,
+    name: 'comp4',
+  },
 ];
-type CardProps = {
+export type CardProps = {
   id: number;
   name: string;
 };
@@ -27,81 +30,50 @@ type CardProps = {
 function App() {
   const [products, setProducts] = useState<CardProps[]>(PRODUCTS);
 
-  const [scaleFirstItem, setscaleFirstItem] = useState(1);
-  const [itemDr1, setItemDr1] = useState(30);
-  const [itemDl1, setItemDl1] = useState(0);
+  const [arrowClick, setArrowClick] = useState(false);
 
-  const [itemD2, setItemD2] = useState(0);
-  const [itemD3, setItemD3] = useState(0);
-
-  const [scaleSecondItem, setscaleSecondItem] = useState(1);
-
+  // Decreases the value of each id.
+  // before ['1', '2', '3', '4'], then ['4', '1', '2', '3']
   const putLeftProducts = useCallback(() => {
-    const copyProducts = [...products];
-    const item1 = copyProducts.filter(i => i.id === 1)[0];
-
-    const p = copyProducts.map(item => ({
+    const p = products.map(item => ({
       ...item,
       id: item.id - 1,
     }));
-    item1.id = 3;
-    p.push(item1);
-    p.shift();
+    const pIndex = p.findIndex(i => i.id === 0);
+    p[pIndex].id = products.length;
 
     return p;
   }, [products]);
 
+  // It does the other way by increasing the value of each id.
+  // before ['4', '1', '2', '3'], then ['1', '2', '3', '4']. It's all about calling.
   const putRightProducts = useCallback(() => {
-    const copyProducts = [...products];
-    const item4 = copyProducts.filter(i => i.id === 3)[0];
-    const p = copyProducts.map(item => ({
+    const p = products.map(item => ({
       ...item,
       id: item.id + 1,
     }));
-    item4.id = 1;
-    p.pop();
-
-    p.unshift(item4);
+    const pIndex = p.findIndex(i => i.id === products.length + 1);
+    p[pIndex].id = 1;
 
     return p;
   }, [products]);
 
+  // Triggers the animation to the left.
   const handleLeft = useCallback(() => {
-    setItemDr1(0);
-    setItemDl1(-32);
-
-    setscaleSecondItem(1.0001);
+    setArrowClick(true);
 
     const p = putLeftProducts();
 
     setProducts(p);
   }, [putLeftProducts]);
 
+  // Triggers the animation to the right, it remains to implement.
   const handleRight = useCallback(() => {
-    setItemDr1(32);
-    setItemDl1(0);
-    setscaleSecondItem(1);
-
-    const p = putRightProducts();
-
-    setProducts(p);
-  }, [putRightProducts]);
-
-  const handleD = useCallback(
-    (id, aside) => {
-      if (id === 1 && aside === 'right') {
-        return `${itemDr1}%`;
-      }
-
-      if (id === 1 && aside === 'left') {
-        return `${itemDl1}%`;
-      }
-    },
-    [itemDl1, itemDr1],
-  );
+    console.log('handleRight');
+  }, []);
 
   React.useEffect(() => {
-    console.log('products', products);
+    console.log('p', products);
   }, [products]);
 
   return (
@@ -121,25 +93,16 @@ function App() {
             <p>All Collection</p>
           </C.ContentFooter>
         </C.Footer>
-        <C.ContainerProducts scaleSecondItem={scaleSecondItem}>
-          {products.map(product => (
-            <C.CardLi
-              className={`id${product.id}`}
-              _id={product.id}
+        <C.ContainerProducts>
+          {products.map((product, index) => (
+            <Card
+              setArrowClick={setArrowClick}
+              arrowClick={arrowClick}
               key={product.id}
-              animate={{
-                scale: product.id === 2 ? scaleSecondItem : 1,
-                marginRight: handleD(product.id, 'right'),
-                marginLeft: handleD(product.id, 'left'),
-              }}
-              transition={{ ease: 'easeOut', duration: 0.5 }}
-            >
-              <Card
-                _id={product.id}
-                scaleFirstItem={scaleFirstItem}
-                name={product.name}
-              />
-            </C.CardLi>
+              index={index}
+              id={product.id}
+              name={product.name}
+            />
           ))}
         </C.ContainerProducts>
       </C.Content>
