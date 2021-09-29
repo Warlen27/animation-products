@@ -10,16 +10,10 @@ import {
 type ContainerCardProps = {
   index: number;
   arrowClick: boolean;
-  // setArrowClick(param: boolean): void;
-  // setV(param: number): void;
-  v: number;
+  clickCounter: number;
   direction: number;
   image: string;
   id: number;
-  // targetElement: string;
-  // setTargetElement(param: string): void;
-  // setVariantsImageTwo(param: object): void;
-  // variantsImageTwo: object;
 };
 
 const ImageTwo: React.FC<ContainerCardProps> = ({
@@ -27,20 +21,16 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
   index,
   image,
   arrowClick,
-  v,
+  clickCounter,
   id,
 }) => {
   const [variantsImageTwo, setVariantsImageTwo] = useState({});
 
   const handleDirection = useCallback(() => {
-    console.log('vI', v);
-    console.log('indexI', index);
-    console.log('variantsImageTwoI', variantsImageTwo);
-
     if (id === 1) {
       console.log('index-225', index);
 
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariantsImageTwo(oneImageTwoVariant);
           break;
@@ -71,7 +61,7 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
     }
 
     if (id === 2) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariantsImageTwo(TwoImageTwoVariant);
 
@@ -103,7 +93,7 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
     }
 
     if (id === 3) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           //   setVariantsImageTwo(TwoImageTwoVariant);
 
@@ -135,7 +125,7 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
     }
 
     if (id === 4) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           //   setVariantsImageTwo(TwoImageTwoVariant);
 
@@ -167,7 +157,7 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
     }
 
     if (id === 5) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           //   setVariantsImageTwo(TwoImageTwoVariant);
 
@@ -197,7 +187,7 @@ const ImageTwo: React.FC<ContainerCardProps> = ({
           break;
       }
     }
-  }, [id, index, v, variantsImageTwo]);
+  }, [id, index, clickCounter, variantsImageTwo]);
 
   useEffect(() => {
     handleDirection();

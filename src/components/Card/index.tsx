@@ -9,8 +9,6 @@ import {
   fifthItem,
   firstImageItamVariant,
   secondImageItemVariant,
-  oneImageTwoVariant,
-  TwoImageTwoVariant,
 } from '../Variants';
 
 import * as C from './styles';
@@ -19,11 +17,9 @@ interface CardProps extends ContainerCardProps {
   index: number;
   arrowClick: boolean;
   setArrowClick(param: boolean): void;
-  setV(param: number): void;
-  v: number;
+  setClickCounter(param: number): void;
+  clickCounter: number;
   direction: number;
-  targetElement: string;
-  setTargetElement(param: string): void;
 }
 
 const Card = ({
@@ -36,26 +32,18 @@ const Card = ({
   index,
   arrowClick,
   setArrowClick,
-  v,
-  setV,
+  clickCounter,
+  setClickCounter,
   direction,
-  targetElement,
-  setTargetElement,
 }: CardProps) => {
   const [variants, setVariants] = useState({});
   const [variantsFirstImage, setVariantsFirstImage] = useState({});
 
-  // const [targetElement, setTargetElement] = useState('');
   const [checkColor, setCheckColor] = useState(1);
 
-  const checkIndex = useMemo(() => `index${v}` !== `index${index}`, [index, v]);
-
   const handleDirection = useCallback(() => {
-    console.log('v', v);
-    console.log('index', index);
-
     if (id === 1) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariants(firstItem);
           setVariantsFirstImage(firstImageItamVariant);
@@ -91,7 +79,7 @@ const Card = ({
     }
 
     if (id === 2) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariants(secondItem);
           setVariantsFirstImage(secondImageItemVariant);
@@ -128,7 +116,7 @@ const Card = ({
     }
 
     if (id === 3) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariants(thirdItem);
           setVariantsFirstImage(secondImageItemVariant);
@@ -165,7 +153,7 @@ const Card = ({
     }
 
     if (id === 4) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariants(fourthItem);
           setVariantsFirstImage(secondImageItemVariant);
@@ -202,7 +190,7 @@ const Card = ({
     }
 
     if (id === 5) {
-      switch (v) {
+      switch (clickCounter) {
         case 0:
           setVariants(fifthItem);
           setVariantsFirstImage(secondImageItemVariant);
@@ -237,7 +225,7 @@ const Card = ({
           break;
       }
     }
-  }, [id, index, v]);
+  }, [id, index, clickCounter]);
 
   useEffect(() => {
     handleDirection();
@@ -247,22 +235,13 @@ const Card = ({
     setArrowClick(false);
   }, [arrowClick, setArrowClick]);
 
-  // useEffect(() => {
-  //   setArrowClick(false);
-  // }, []);
-
-  if (v >= 5) {
-    console.log('index-225', index);
-
-    setV(0);
+  if (clickCounter >= 5) {
+    setClickCounter(0);
   }
 
-  if (v < 0) {
-    console.log('index-231', index);
-
-    setV(4);
+  if (clickCounter < 0) {
+    setClickCounter(4);
   }
-  // `index${v}` !== `index${index}`
 
   return (
     <AnimatePresence initial={false} custom={direction}>
@@ -271,14 +250,14 @@ const Card = ({
         id={`index${index}`}
         variants={variants}
         animate={arrowClick && ['initial', 'middle']}
-        v={v}
+        v={clickCounter}
         arrowClick={arrowClick}
       >
         <C.CardHeader
           variants={C.firstTitleVariant}
           animate={
             arrowClick ||
-            (`index${v}` === `index${index}`
+            (`index${clickCounter}` === `index${index}`
               ? ['visible', 'hidden']
               : ['initial'])
           }
@@ -286,37 +265,23 @@ const Card = ({
           {firstTitle}
         </C.CardHeader>
 
-        {/* {v === 0 && index === 0 && <></>} */}
-
         <C.ImageProduct
           className={`image${index}`}
           src={image}
           variants={variantsFirstImage}
           animate={
             arrowClick &&
-            (`index${v}` === `index${index}`
+            (`index${clickCounter}` === `index${index}`
               ? ['visible', 'hidden']
               : ['visible'])
           }
         />
 
-        {/* <C.ImageProduct
-          src={image}
-          variants={C.ImageVariant}
-          animate={
-            arrowClick &&
-            (`index${v}` === `index${index}`
-              ? ['visible', 'hidden']
-              : ['visible'])
-          }
-        /> */}
-        {/* )} */}
-
         <C.CardContent
           variants={C.ContentVariant}
           animate={
             arrowClick ||
-            (`index${v}` === `index${index}`
+            (`index${clickCounter}` === `index${index}`
               ? ['visible', 'hidden']
               : ['visible'])
           }
@@ -325,7 +290,7 @@ const Card = ({
             variants={C.RestItensVariant}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['visible', 'hidden']
                 : ['initial'])
             }
@@ -337,7 +302,7 @@ const Card = ({
             variants={C.RestItensVariant}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['visible', 'hidden']
                 : ['initial'])
             }
@@ -349,7 +314,7 @@ const Card = ({
           variants={C.CardContentTwoVariant}
           animate={
             arrowClick ||
-            (`index${v}` === `index${index}`
+            (`index${clickCounter}` === `index${index}`
               ? ['hidden', 'visible']
               : ['hidden'])
           }
@@ -358,7 +323,7 @@ const Card = ({
             variants={C.firstTitleVariantTwo}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['hidden', 'visible']
                 : ['hidden'])
             }
@@ -370,7 +335,7 @@ const Card = ({
             variants={C.RestItensVariantTwo}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['hidden', 'visible']
                 : ['hidden'])
             }
@@ -382,7 +347,7 @@ const Card = ({
             variants={C.RestItensVariantTwo}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['hidden', 'visible']
                 : ['hidden'])
             }
@@ -394,7 +359,7 @@ const Card = ({
             variants={C.ContainerChoiceTwoVariant}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['hidden', 'visible']
                 : ['hidden'])
             }
@@ -430,7 +395,7 @@ const Card = ({
             variants={C.buttonVariantTwo}
             animate={
               arrowClick ||
-              (`index${v}` === `index${index}`
+              (`index${clickCounter}` === `index${index}`
                 ? ['hidden', 'visible']
                 : ['hidden'])
             }

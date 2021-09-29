@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as C from './styles';
 import Marquee from './components/Marquee';
 import Card from './components/Card';
@@ -128,43 +128,30 @@ export type ContainerCardProps = {
 };
 
 function App() {
-  const [products, setProducts] = useState<ContainerCardProps[]>(PRODUCTS);
+  const [products] = useState<ContainerCardProps[]>(PRODUCTS);
   const [direction, setDirection] = useState(0);
-  const [targetElement, setTargetElement] = useState('index0');
 
   const [arrowClick, setArrowClick] = useState(false);
 
-  const [v, setV] = React.useState(0);
+  const [clickCounter, setClickCounter] = useState(0);
 
   const handleLeft = useCallback(() => {
     setDirection(-1);
 
     setArrowClick(true);
-    setV(prev => prev + 1);
+    setClickCounter(prev => prev + 1);
   }, []);
 
   const handleRight = useCallback(() => {
     setDirection(1);
     setArrowClick(true);
 
-    setV(prev => prev - 1);
+    setClickCounter(prev => prev - 1);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log('p', products);
   }, [products]);
-
-  React.useEffect(() => {
-    const element = document.elementFromPoint(70, 0)?.id;
-    console.log('element', element);
-
-    if (element) setTargetElement(element);
-    return () => setTargetElement('');
-  }, [v]);
-
-  React.useEffect(() => {
-    console.log('arrowClick', arrowClick);
-  }, [arrowClick]);
 
   return (
     <C.Container>
@@ -206,7 +193,7 @@ function App() {
                 key={product.id}
                 image={product.image}
                 arrowClick={arrowClick}
-                v={v}
+                clickCounter={clickCounter}
                 id={product.id}
               />
             ))}
@@ -222,13 +209,9 @@ function App() {
                 color={product.color}
                 price={product.price}
                 image={product.image}
-                v={v}
-                setV={setV}
+                clickCounter={clickCounter}
+                setClickCounter={setClickCounter}
                 direction={direction}
-                targetElement={targetElement}
-                setTargetElement={setTargetElement}
-                // setVariantsImageTwo={setVariantsImageTwo}
-                // variantsImageTwo={variantsImageTwo}
               />
             ))}
           </C.ContainerProducts>
