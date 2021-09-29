@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   motion
 
@@ -54,7 +54,56 @@ export const Content = styled.article`
   
 `;
 
+export const Header = styled.header`
+  width: 96%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px 0 50px;
+`;
 
+export const ContainerLogo = styled.article`
+  width: 110px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  
+`;
+
+export const Logo = styled.img`
+  
+`;
+
+export const Code = styled.span`
+  color: #f1f1f1;
+  text-transform: uppercase;
+  margin-left: 10px;
+  font-size: 2rem;
+  font-family: Roboto, sans-serif;
+  font-weight: bold;
+`;
+
+export const Menu = styled.ul`
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+
+  img {
+    margin-left: 40px;
+    cursor: pointer;
+  }
+  
+`;
+
+export const Item = styled.li<PropsLi>`
+    color: ${({ focus }) => focus ? '#f1f1f1' : '#553b8e'};
+    font-size: 22px;
+    font-family: Roboto, sans-serif;
+    cursor: pointer;
+`;
 
 export const Footer = styled.footer`
   width: 100%;
@@ -98,50 +147,103 @@ export const Arrow = styled.button<PropsArrow>`
   }
 `;
 
-export const ContainerProducts = styled(motion.ul)`
-  width: 100vw;
-  min-width: 100vw;
+export const Caroucel = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: absolute;
+
+  top: 0;
+  left:0;
+`;
+
+
+
+export const ContainerProducts = styled.ul`
+  width: 113vw;
   height: 100vh;
   display: flex;
   flex-direction: row;
   align-items: center;
   grid-gap: 35px;
   list-style: none;
-  background-color: rgb(0,0,0,.5);
   z-index: 2;
-  position: absolute;
-  top: 0;
-  left: -25px;
-  /* transform: translateX(40%); */
-  .index0 {
+  background-color: rgb(0,0,0,.3);
+
+  /* transform: translateY(-310px) translateX(40%); */
+  /* margin-left: -25px; */
+  #index0 {
     transform: scale(1.0001) !important;
     margin: auto 0;
-    left: 0;
-    transition: ease-out 0.5s;
+    right: 72%;
     width: 30vw;
     height: 100vh;
   }
 
-  .index1 {
+  #index1 {
     right: 18%;
     margin: auto 0;
+    transition: ease-out 0.3s;
 
+/* visibility: hidden; */
   }
 
-  .index2 {
+  #index2 {
     right: -6%;
     margin: auto 0;
+    transition: ease-out 0.3s;
+/* 
+    visibility: hidden; */
+
 
   }
 
-  .index3 {
+  #index3 {
     right: -30%;
     margin: auto 0;
+    transition: ease-out 0.3s;
+
+    /* visibility: hidden; */
 
   }
 
+  #index4 {
+    right: -54%;
+    margin: auto 0;
+    transition: ease-out 0.3s;
 
- 
+    /* visibility: hidden; */
+
+  }
+
+  .image-two0 {
+    top: 40%;
+    left: 25%;
+    transform: rotateZ(16deg);
+    transition: ease-out 0.3s;
+
+  }
+
+  .image-two1 {
+    /* visibility: hidden; */
+   
+  }
+
+  .image-two2 {
+    /* visibility: hidden; */
+   
+  }
+
+  .image-two3 {
+    /* visibility: hidden; */
+   
+  }
+
+  .image-two4 {
+    /* visibility: hidden; */
+   
+  }
 `;
 
 
